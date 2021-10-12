@@ -1,0 +1,10 @@
+﻿  源2.cpp
+D:\共享\learn\c\Project1\Project1\源2.cpp(7,8): warning C4476: "scanf": 格式说明符中的类型字段字符“ ”未知
+D:\共享\learn\c\Project1\Project1\源2.cpp(7,18): warning C4474: scanf: 格式字符串中传递的参数太多
+D:\共享\learn\c\Project1\Project1\源2.cpp(7,18): message : 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
+D:\共享\learn\c\Project1\Project1\源2.cpp(8,8): error C2131: 表达式的计算结果不是常数
+D:\共享\learn\c\Project1\Project1\源2.cpp(8,8): message : 因读取超过生命周期的变量而失败
+D:\共享\learn\c\Project1\Project1\源2.cpp(8,8): message : 请参见“length”的用法
+D:\共享\learn\c\Project1\Project1\源2.cpp(11,11): warning C4477: “printf”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“int [length]”
+D:\共享\learn\c\Project1\Project1\源2.cpp(7,2): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\共享\learn\c\Project1\Project1\源2.cpp(12,4): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
