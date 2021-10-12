@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "任务-test2",
+      "appliesTo": "test_10_12_2/test2.c",
+      "type": "launch"
+    }
+  ]
+}
