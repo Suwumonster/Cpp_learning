@@ -16,7 +16,7 @@ int main()
 	cin >> Date.month;
 	cin >> Date.day;
 	daynum = Date.day;
-	if ( (Date.year % 4 == 0 && Date.year % 100 != 0) || Date.year )
+	if ( (Date.year % 4 == 0 && Date.year % 100 != 0) || Date.year % 400 == 0)
 	{
 		Date.monthday[1] = 29;
 	}
