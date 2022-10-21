@@ -19,7 +19,10 @@ node* tail_set_link(int n)
 	node* h = 0;
 	node* tail = 0;
 	node* a;
-	
+	if (n == 0)
+	{
+		return 0;
+	}
 	h = new node;
 	cin >> h->data;
 	h->next = 0;
@@ -34,51 +37,59 @@ node* tail_set_link(int n)
 		tail->next = a;
 		tail = a;
 	}
-
-	tail->next = h;
+	if (tail != h)
+	{
+		tail->next = h;
+	}
 	return tail;
 }
 
-void bubble_sort(node* h, node* end)
+
+void del_min(node*& t)
 {
-	if (h == end)
+	if (t == 0)
 	{
 		return;
 	}
-	node* p, * q;
-	p = h;
-	q = h->next;
-	while (q != end)
+	if (t->next == 0)
 	{
-		if (p->data > q->data)
+		t = 0;
+		return;
+	}
+	node* p = t->next;
+	node* q = 0;
+	int min = p->data;
+	while (p != t)
+	{
+		if (min > p->data)
 		{
-			int x = p->data;
-			p->data = q->data;
-			q->data = x;
+			min = p->data;
 		}
-		p = q;
+		p = p->next;
+	}
+	if (min > p->data)
+	{
+		min = p->data;
+	}
+
+	q = t->next;
+	while (q != t)
+	{
+		if (min == q->data)
+		{
+			p->next = q->next;
+			delete q;
+			return;
+		}
+		p = p->next;
 		q = q->next;
 	}
-	if (p->data > q->data)
+	if (min == q->data)
 	{
-		int x = p->data;
-		p->data = q->data;
-		q->data = x;
+		p->next = q->next;
+		t = p;
+		delete q;
 	}
-	end = p;
-	bubble_sort(h, end);
-}
-
-void del_min(node* L)
-{
-	if (L == 0)
-	{
-		return;
-	}
-	node* p = L->next;
-	L->next = p->next;
-	free(p);
-	p = 0;
 }
 
 void show_link(node* L)
@@ -102,8 +113,6 @@ int main()
 	node* L = 0;
 	cin >> n;
 	L = tail_set_link(n);
-	bubble_sort(L->next, L);
-	show_link(L);
 	del_min(L);
 	show_link(L);
 	return 0;

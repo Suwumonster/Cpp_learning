@@ -1,23 +1,38 @@
-#define _CRT_SECURE_NO_WARNINGS 1
+#define _crt_secure_no_warnings 1
 
 //1.在一个线性表中找出一个最小值并删除之。
 //（1）利用顺序存储的方法来实现，可以直接采用数组来完成。
 //（2）利用循环链表的方法来实现。
-
+//
 //（1）题解
 #include <iostream>
-#include <stdlib.h>
 using namespace std;
 
-int int_cmp(const void* a, const void* b)
-{
-	return *((int*)b) - *((int*)a);
-}
 
 void del_min_arr(int arr[], int& n)
 {
-	qsort(arr, n, sizeof(int), int_cmp);
-	arr[n - 1] = 0;
+	int min = arr[0];
+	int min_mark = 0;
+	int i = 0;
+	for (i = 0; i < n; i++)
+	{
+		if (min > arr[i])
+		{
+			min = arr[i];
+			min_mark = i;
+		}
+	}
+	for (i = min_mark; i < n; i++)
+	{
+		if (i < n - 1)
+		{
+			arr[i] = arr[i + 1];
+		}
+		else
+		{
+			arr[i] = 0;
+		}
+	}
 	n--;
 }
 
