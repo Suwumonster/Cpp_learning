@@ -14,11 +14,6 @@ typedef struct BinTree
 	struct BinTree* right;
 }tree;
 
-typedef struct NODE
-{
-	int data;
-	struct NODE* next;
-}node;
 
 tree* set_tree()
 {
@@ -35,50 +30,37 @@ tree* set_tree()
 	return t;
 }
 
-void link(tree* r, node*& tail, node*& head)
+void link(tree* r, tree*& head)
 {
 	if (r == 0)
 	{
 		return;
 	}
-	link(r->left, tail, head);
 	if (r->left == 0 && r->right == 0)
 	{
-		if (head == 0)
-		{
-			head = new node;
-			head->data = r->data;
-			tail = head;
-		}
-		else
-		{
-			tail->next = new node;
-			tail->next->data = r->data;
-			tail = tail->next;
-		}
-		tail->next = 0;
+		r->right = head;
+		head = r;
 		return;
 	}
-	link(r->right, tail, head);
+	link(r->right, head);
+	link(r->left, head);
 }
 
-void print(node* h)
+void print(tree* r)
 {
-	if (h == 0)
+	if (r == 0)
 	{
-		return ;
+		return;
 	}
-	cout << h->data << " ";
-	print(h->next);
+	cout << r->data << " ";
+	print(r->right);
 }
 int main()
 {
 	tree* root = 0;
-	node* head = 0;
-	node* tail = 0;
 	root = set_tree();
-
-	link(root, tail, head);
+	tree* head = 0;
+	link(root, head);
 	print(head);
 	return 0;
 }
