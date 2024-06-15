@@ -20,8 +20,7 @@ namespace my_stl
 		const_iterator begin() const;
 		const_iterator end() const;
 
-		//构造和析构
-
+		//构造
 		string(const char* s = "")
 		{
 			_size = strlen(s);
@@ -37,7 +36,7 @@ namespace my_stl
 			_size = s._size;
 			_capacity = s._capacity;
 		}
-
+		//析构
 		~string()
 		{
 			delete[] _str;
@@ -56,12 +55,14 @@ namespace my_stl
 
 
 		void reserve(size_t n);
-
+		void resize(size_t n, char ch = 'x');
 		void push_back(char ch);
 
 		string& append(const char* s);
 
 		string& operator+=(const string& s);
+		string& operator+=(char c);
+
 
 		int operator<(const string& s);
 		int operator==(const string& s);
@@ -74,10 +75,26 @@ namespace my_stl
 		string& insert(size_t pos, const char* str);
 		string& erase(size_t pos = 0, size_t len = npos);
 
+		void clear();
+		void swap(string& s);
+
+		size_t size()const;
+		size_t capacity()const;
+		bool empty()const;
+
+		// 返回c在string中第一次出现的位置
+		size_t find(char c, size_t pos = 0) const;
+
+		// 返回子串s在string中第一次出现的位置
+		size_t find(const char* s, size_t pos = 0) const;
+
 	private:
 		char* _str;
 		size_t _size;//str长度
 		size_t _capacity;//有效数据的容量 不包含\0 实际上_str的空间会比capacity多1
 		static const size_t npos = -1;
 	};
+
+	std::ostream& operator<<(std::ostream& out, const my_stl::string& s);
+	std::istream& operator>>(std::istream& in, my_stl::string& s);
 }
