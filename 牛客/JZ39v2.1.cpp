@@ -35,7 +35,7 @@ public:
             if(count == 0)
             {
                 candidate = numbers[i + 1];
-                count = 1;
+                count = 0;
             }
         }
         return candidate;
