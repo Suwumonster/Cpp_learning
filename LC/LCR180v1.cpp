@@ -1,3 +1,4 @@
+//有点类似滑动窗口的解法，但是可读性有点差
 bool comp(const vector<int> a, const vector<int> b)
 {
     return a[0] < b[0];
