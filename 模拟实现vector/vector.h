@@ -2,6 +2,8 @@
 #include <iostream>
 #include <assert.h>
 #include <algorithm>
+#include <utility>
+#include <string>
 
 namespace my_stl
 {
@@ -28,10 +30,22 @@ namespace my_stl
 		{
 			return _finish;
 		}
+
 		//construct and destroy
 		vector():_start(nullptr), _finish(nullptr), _outOfStorage(nullptr)
 		{}
-		vector(int n, const T& value = T())
+		vector(size_t n, const T& value = T())//reload vector
+			:_start(nullptr), _finish(nullptr), _outOfStorage(nullptr)
+		{
+			reserve(n);
+			for (size_t i = 0; i < n; i++)
+			{
+				*_finish = value;
+				_finish++;
+			}
+		}
+		vector(int n, const T& value = T())//reload vector
+			:_start(nullptr), _finish(nullptr), _outOfStorage(nullptr)
 		{
 			reserve(n);
 			for (int i = 0; i < n; i++)
@@ -40,16 +54,38 @@ namespace my_stl
 				_finish++;
 			}
 		}
+
 		template<class InputIterator>
-		vector(InputIterator first, InputIterator last)//not define yet
+		vector(InputIterator first, InputIterator last)
+			:_start(nullptr), _finish(nullptr), _outOfStorage(nullptr)
 		{
-
+			while (first != last)
+			{
+				push_back(*first);
+				first++;
+			}
 		}
-		vector(const vector<T>& v)//not define yet
+		vector(const vector<T>& v)
+			:_start(nullptr), _finish(nullptr), _outOfStorage(nullptr)
 		{
-
+			size_t sz = v.size();
+			reserve(sz);
+			for (int i = 0; i < sz; i++)
+			{
+				_start[i] = v._start[i];
+			}
 		}
-		vector<T>& operator= (vector<T> v);//not define yet
+		vector<T>& operator= (const vector<T>& v)
+		{
+			int sz = v.size();
+			reserve(sz);
+			for (int i = 0; i < sz; i++)
+			{
+				_start[i] = v._start[i];
+			}
+			_finish = _start + sz;
+			return *this;
+		}
 		~vector()
 		{
 			delete[] _start;
@@ -73,7 +109,12 @@ namespace my_stl
 				T* tmp = new T[n];
 				if (_start)
 				{
-					memcpy(tmp, _start, sizeof(T) * sz);
+					//don't use memcpy, it cause copy problem.
+					//memcpy(tmp, _start, sizeof(T) * sz);
+					for (int i = 0; i < sz; i++)
+					{
+						tmp[i] = _start[i];
+					}
 				}
 				_start = tmp;
 				_finish = _start + sz;
@@ -100,6 +141,7 @@ namespace my_stl
 				}
 			}
 		}
+
 
 		//access
 		T& operator[](size_t pos)
@@ -130,7 +172,12 @@ namespace my_stl
 			assert(_start != _finish);
 			_finish--;
 		}
-		void swap(vector<T>& v);//not define yet
+		void swap(vector<T>& v)
+		{
+			std::swap(_start, v._start);
+			std::swap(_finish, v._finish);
+			std::swap(_outOfStorage, v._outOfStorage);
+		}
 		iterator insert(iterator pos, const T& x)
 		{
 			assert(pos >= _start);
@@ -169,7 +216,7 @@ namespace my_stl
 				movePtr++;
 			}
 			_finish--;
-			return pos;
+			return pos + 1;
 		}
 
 	private:

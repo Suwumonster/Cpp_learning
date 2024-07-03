@@ -9,22 +9,22 @@ namespace my_stl
 	//测试const对象的输出
 	void constTest(const vector<int>& v)
 	{
-		//auto it = v.cbegin();
-		//while (it != v.cend())
-		//{
-		//	cout << *it << " ";
-		//	it++;
-		//}
-		//cout << endl;
+		auto it = v.cbegin();
+		while (it != v.cend())
+		{
+			cout << *it << " ";
+			it++;
+		}
+		cout << endl;
 
 		//cout << v.size() << endl;
 		//cout << v.capacity() << endl;
 
-		for (int i = 0; i < 5; i++)
-		{
-			cout << v[i] << " ";
-		}
-		cout << endl;
+		//for (int i = 0; i < 5; i++)
+		//{
+		//	cout << v[i] << " ";
+		//}
+		//cout << endl;
 	}
 	//测试begin、end、cbegin、cend、reserve、部分构造函数
 	void test1()
@@ -79,7 +79,7 @@ namespace my_stl
 		constTest(v1);
 
 		v1.pop_back();
-		v1.pop_back();
+		//v1.pop_back();
 	}
 
 	void test4()//测试insert和erase
@@ -123,11 +123,57 @@ namespace my_stl
 
 		constTest(v1);
 	}
+
+	void test6()//vector() reload crush test
+	{
+		std::string s = "hello";
+		vector<int> v1(s.begin(), s.end());
+		vector<int> v2(10, 2);
+
+		constTest(v1);
+		constTest(v2);
+	}
+
+	void test7()//test =reload
+	{
+		vector<int> v1;
+		vector<int> v2(10, 2);
+		vector<int> v3(5, 1);
+
+		constTest(v1);
+		constTest(v2);
+		constTest(v3);
+
+		v1 = v2;
+		constTest(v1);
+		constTest(v2);
+		constTest(v3);
+
+		v1 = v3;
+		constTest(v1);
+		constTest(v2);
+		constTest(v3);
+	}
+
+	void test8()//test swap and copy construct
+	{
+		vector<vector<int>> vv1;
+		
+		vector<int> v(5, 1);
+		for (int i = 0; i < 5; i++)
+		{
+			vv1.push_back(v);
+		}
+
+		vector<vector<int>> vv2(vv1);
+
+		vv1.swap(vv2);
+	}
 }
 
 
 int main()
 {
-	my_stl::test5();
+	my_stl::test8();
 	return 0;
 }
