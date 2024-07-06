@@ -197,9 +197,26 @@ namespace my_stl
 		lt1.clear();
 		consttest(lt1);
 	}
+
+	void test7()//²âÊÔ·´Ïòµü´úÆ÷
+	{
+		List<int> lt1;
+
+		lt1.push_back(5);
+		lt1.push_back(6);
+		lt1.push_back(7);
+		lt1.push_back(8);
+		auto rit = lt1.rbegin();
+		while (rit != lt1.rend())
+		{
+			cout << *rit << " ";
+			rit++;
+		}
+		cout << endl;
+	}
 }
 int main()
 {
-	my_stl::test6();
+	my_stl::test7();
 	return 0;
 }
