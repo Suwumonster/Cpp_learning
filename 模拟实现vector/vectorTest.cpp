@@ -1,5 +1,3 @@
-//v2
-
 #define _CRT_SECURE_NO_WARNINGS 1
 #include "vector.h"
 using std::cout;
@@ -11,11 +9,11 @@ namespace my_stl
 	//测试const对象的输出
 	void constTest(const vector<int>& v)
 	{
-		auto it = v.cbegin();
-		while (it != v.cend())
+		auto rit = v.crbegin();
+		while (rit != v.crend())
 		{
-			cout << *it << " ";
-			it++;
+			cout << *rit << " ";
+			rit++;
 		}
 		cout << endl;
 
@@ -171,11 +169,32 @@ namespace my_stl
 
 		vv1.swap(vv2);
 	}
+
+	void test9()//test reverse_iterator
+	{
+		vector<int> v1;
+
+		v1.push_back(1);
+		v1.push_back(2);
+		v1.push_back(3);
+		v1.push_back(4);
+		v1.push_back(5);
+
+		auto rit = v1.rbegin();
+		while (rit != v1.rend())
+		{
+			cout << *rit << " ";
+			rit++;
+		}
+		cout << endl;
+
+		constTest(v1);
+	}
 }
 
 
 int main()
 {
-	my_stl::test8();
+	my_stl::test9();
 	return 0;
 }

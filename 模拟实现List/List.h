@@ -1,6 +1,7 @@
 #pragma once
 #include <assert.h>
 #include <utility>
+#include "Reverse_Iterator.h"
 //unknown reason List can't use funtion find in the algorithm 
 //for convenient to find element in the list, so i define another find that i can use.
 
@@ -72,59 +73,6 @@ namespace my_stl
 		}
 	};
 
-	template<class Iterator, class Ref, class Ptr>
-	struct Reverse_iterator
-	{
-		typedef Reverse_iterator self;
-		Iterator _it;
-		Reverse_iterator(Iterator it = Iterator())
-		{
-			_it = it;
-		}
-		
-		self& operator++()
-		{
-			_it--;
-			return *this;
-		}
-		self operator++(int)
-		{
-			self tmp = *this;
-			_it--;
-			return tmp;
-		}
-		self& operator--()
-		{
-			_it++;
-			return *this;
-		}
-		self operator--(int)
-		{
-			self tmp = *this;
-			_it++;
-			return tmp;
-		}
-
-		bool operator!=(const self& tmp)
-		{
-			return _it != tmp._it;
-		}
-
-		bool operator==(const self& tmp)
-		{
-			return _it == tmp._it;
-		}
-
-		Ref operator*()
-		{
-			return _it.operator*();
-		}
-
-		Ptr operator->()
-		{
-			return _it.operator->();
-		}
-	};
 
 	template <class T>
 	class List
@@ -135,8 +83,8 @@ namespace my_stl
 		//Iterators:
 		typedef Iterator<T, T&, T*> iterator;
 		typedef Iterator<T, const T&, const T*> const_iterator;
-		typedef Reverse_iterator<iterator, T&, T*> reverse_iterator;
-		typedef Reverse_iterator<const_iterator, const T&, const T*> const_reverse_iterator;
+		typedef Reverse_Iterator<iterator, T&, T*> reverse_iterator;
+		typedef Reverse_Iterator<const_iterator, const T&, const T*> const_reverse_iterator;
 		iterator begin()
 		{
 			return iterator(_head->_next);
@@ -156,19 +104,19 @@ namespace my_stl
 
 		reverse_iterator rbegin()
 		{
-			return reverse_iterator(iterator(_head->_prev));
+			return reverse_iterator(end());
 		}
 		reverse_iterator rend()
 		{
-			return reverse_iterator(iterator(_head));
+			return reverse_iterator(begin());
 		}
 		const_reverse_iterator rbegin() const
 		{
-			return const_reverse_iterator(const_iterator(_head->prev));
+			return const_reverse_iterator(end());
 		}
 		const_reverse_iterator rend() const
 		{
-			return const_reverse_iterator(const_iterator(_head));
+			return const_reverse_iterator(begin());
 		}
 
 		//Construct and destroy

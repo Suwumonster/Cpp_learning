@@ -209,10 +209,13 @@ namespace my_stl
 		auto rit = lt1.rbegin();
 		while (rit != lt1.rend())
 		{
+			*rit += 2;
 			cout << *rit << " ";
 			rit++;
 		}
 		cout << endl;
+
+
 	}
 }
 int main()

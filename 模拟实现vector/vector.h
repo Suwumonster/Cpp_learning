@@ -4,9 +4,12 @@
 #include <algorithm>
 #include <utility>
 #include <string>
-//v2
+#include "Reverse_Iterator.h"
+
 namespace my_stl
 {
+	
+
 	template<class T>
 	class vector
 	{
@@ -14,6 +17,9 @@ namespace my_stl
 		//原生指针迭代器
 		typedef T* iterator;
 		typedef const T* const_iterator;
+		typedef Reverse_Iterator<iterator, T&, T*> reverse_iterator;
+		typedef Reverse_Iterator<const_iterator, const T&, const T*> const_reverse_iterator;
+
 		iterator begin()
 		{
 			return _start;
@@ -29,6 +35,22 @@ namespace my_stl
 		const_iterator cend() const
 		{
 			return _finish;
+		}
+		reverse_iterator rbegin()
+		{
+			return reverse_iterator(end());
+		}
+		reverse_iterator rend()
+		{
+			return reverse_iterator(begin());
+		}
+		const_reverse_iterator crbegin() const
+		{
+			return const_reverse_iterator(cend());
+		}
+		const_reverse_iterator crend() const
+		{
+			return const_reverse_iterator(cbegin());
 		}
 
 		//construct and destroy
