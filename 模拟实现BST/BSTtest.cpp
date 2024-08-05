@@ -1,7 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include "BST.h"
+#include <string>
 
-namespace my_stl
+namespace my_stl_Kmode
 {
 	//no V only K
 	void test1()//≤‚ ‘Insert°¢Find
@@ -133,8 +134,51 @@ namespace my_stl
 	}
 }
 
+namespace my_stl_KVmode
+{
+	void test1()
+	{
+		BST<string, string> dict;
+		dict.Insert("insert", "≤Â»Î");
+		dict.Insert("erase", "…æ≥˝");
+		dict.Insert("left", "◊Û±ﬂ");
+		dict.Insert("string", "◊÷∑˚¥Æ");
+
+		string str;
+		while (cin >> str)
+		{
+			auto ret = dict.Find(str);
+			if (ret)
+			{
+				cout << str << ":" << ret->_val << endl;
+			}
+			else
+			{
+				cout << "µ•¥ ∆¥–¥¥ÌŒÛ" << endl;
+			}
+		}
+
+		string strs[] = { "∆ªπ˚", "Œ˜πœ", "∆ªπ˚", "”£Ã“", "∆ªπ˚", "”£Ã“", "∆ªπ˚", "”£Ã“", "∆ªπ˚" };
+		// Õ≥º∆ÀÆπ˚≥ˆœ÷µƒ¥Œ
+		BST<string, int> countTree;
+		for (auto str : strs)
+		{
+			auto ret = countTree.Find(str);
+			if (ret == NULL)
+			{
+				countTree.Insert(str, 1);
+			}
+			else
+			{
+				ret->_val++;
+			}
+		}
+		countTree.InOrder();
+	}
+}
+
 int main()
 {
-	my_stl::test4();
+	my_stl_KVmode::test1();
 	return 0;
 }
